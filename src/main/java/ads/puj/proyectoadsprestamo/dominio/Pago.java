@@ -17,4 +17,11 @@ public class Pago {
     public Pago(Float cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString() {
+        return "Pago{" +
+                "cantidad=" + cantidad +
+                '}';
+    }
 }

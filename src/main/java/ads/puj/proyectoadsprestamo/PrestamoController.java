@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 public class PrestamoController implements Initializable {
     private INegocioPrestamo negocio = new NegocioPrestamo();
     private final ObservableList<String> observableLibros = FXCollections.observableArrayList();
+    private final ObservableList<String> observableLibrosCarrito = FXCollections.observableArrayList();
     @FXML
     private Button Limpiar;
     @FXML
@@ -38,7 +39,7 @@ public class PrestamoController implements Initializable {
     @FXML
     private Button Editar;
     @FXML
-    private ListView LibrosCarro;
+    private ListView LibrosCarro = new ListView<>();
     @FXML
     private Spinner MCant = new Spinner();
     @FXML
@@ -52,6 +53,8 @@ public class PrestamoController implements Initializable {
     @FXML
     private Button Agregar;
     @FXML
+    private Button Guardar;
+    @FXML
     private Button Eliminar;
     @FXML
     private ComboBox denomMonedas;
@@ -60,9 +63,9 @@ public class PrestamoController implements Initializable {
     @FXML
     private Label TotalPago;
     @FXML
-    private TextField CedulaEstudiante;
+    private TextField CedulaEstudiante = new TextField();
     @FXML
-    private TextField NombreEstudiante;
+    private TextField NombreEstudiante=new TextField();
 
     private void loadLibros() {
         negocio.cargarLibros();
@@ -103,6 +106,13 @@ public class PrestamoController implements Initializable {
         Integer cantidad = (Integer) cant.getValue();
         negocio.agregarLibroAlPrestamo(libroSel, cantidad);
         lblTotal.setText(String.valueOf(negocio.totalizarPrestamo()));
+        observableLibrosCarrito.setAll(negocio.getPrestamoactual().getLineas().toString());
+        LibrosCarro.setItems(observableLibrosCarrito);
+    }
+    @FXML
+    @Deprecated
+    public void onButtonGuardar(ActionEvent actionEvent) {
+        negocio.guardarPrestamo();
     }
 
     @FXML

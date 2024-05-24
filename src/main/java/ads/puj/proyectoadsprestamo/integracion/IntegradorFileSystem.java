@@ -1,5 +1,6 @@
 package ads.puj.proyectoadsprestamo.integracion;
 import ads.puj.proyectoadsprestamo.dominio.Libro;
+import ads.puj.proyectoadsprestamo.dominio.Prestamo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
@@ -27,13 +28,14 @@ public class IntegradorFileSystem {
         return catalogo;
     }
 
-    private static void guardarPrestamo(List<Libro> catalogo) throws JsonIOException {
+    public static void guardarPrestamo(Prestamo prestamo) throws JsonIOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(catalogo);
+        String json = gson.toJson(prestamo);
         System.out.println(json);
         try (FileWriter writer = new FileWriter("src/main/resources/ads/puj/proyectoadsprestamo/prestamos.json")) {
-            gson.toJson(catalogo, writer);
+            writer.write(json);
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

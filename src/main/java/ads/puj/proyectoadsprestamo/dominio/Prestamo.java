@@ -12,6 +12,7 @@ public class Prestamo {
     List<Linea> lineas = new ArrayList<>();
 
     public Prestamo() {
+        this.fecha = new Date();
     }
 
     public Date getFecha() {
@@ -20,12 +21,10 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo{" +
-                "fecha=" + fecha +
+        return "fecha=" + fecha +
                 ", pagos=" + pagos +
                 ", prestatario=" + prestatario +
-                ", lineas=" + lineas +
-                '}';
+                ", lineas=" + lineas;
     }
 
     public void setFecha(Date fecha) {
@@ -61,5 +60,9 @@ public class Prestamo {
         this.pagos = pagos;
         this.prestatario = prestatario;
         this.lineas = lineas;
+    }
+
+    public void agregarLinea(Linea linea) {
+        lineas.add(linea);
     }
 }

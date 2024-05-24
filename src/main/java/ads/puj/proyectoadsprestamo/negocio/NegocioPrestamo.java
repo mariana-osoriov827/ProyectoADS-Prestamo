@@ -1,9 +1,7 @@
 package ads.puj.proyectoadsprestamo.negocio;
 
+import ads.puj.proyectoadsprestamo.dominio.*;
 import ads.puj.proyectoadsprestamo.dominio.Libro;
-import ads.puj.proyectoadsprestamo.dominio.Estudiante;
-import ads.puj.proyectoadsprestamo.dominio.Libro;
-import ads.puj.proyectoadsprestamo.dominio.Prestamo;
 import ads.puj.proyectoadsprestamo.integracion.IntegradorFileSystem;
 
 import java.util.ArrayList;
@@ -74,7 +72,8 @@ public class NegocioPrestamo implements INegocioPrestamo{
 
     @Override
     public void agregarLibroAlPrestamo(Libro libro, int cantidad) {
-
+        Linea linea = new Linea(cantidad, libro);
+        prestamoactual.agregarLinea(linea);
     }
 
     @Override
@@ -94,8 +93,11 @@ public class NegocioPrestamo implements INegocioPrestamo{
 
     @Override
     public double totalizarPrestamo() {
-
-        return 0.0;
+        double total = 0;
+        for(Linea linea: prestamoactual.getLineas()){
+            total+=linea.getLibro().getPrecio();
+        }
+        return total;
     }
 
     @Override
@@ -105,6 +107,6 @@ public class NegocioPrestamo implements INegocioPrestamo{
 
     @Override
     public void guardarPrestamo() {
-
+        fs.guardarPrestamo(prestamoactual);
     }
 }

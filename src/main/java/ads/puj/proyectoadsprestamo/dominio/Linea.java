@@ -27,4 +27,10 @@ public class Linea {
     public void setLibro(Libro libro) {
         this.libro = libro;
     }
+
+    @Override
+    public String toString() {
+        return "libro=" + libro.getNombre() +
+                "cantidad=" + cantidad;
+    }
 }
