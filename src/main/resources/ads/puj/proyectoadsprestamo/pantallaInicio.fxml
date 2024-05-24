@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ads.puj.proyectoadsprestamo.PrestamoController">
+   <children>
+      <Button fx:id="cargarLibros" layoutX="258.0" layoutY="108.0" mnemonicParsing="false" onAction="#onButtonCargar" text="Cargar libros" />
+      <Button layoutX="249.0" layoutY="312.0" mnemonicParsing="false" onAction="#onButtonIniciar" text="Iniciar préstamo" />
+      <Label layoutX="102.0" layoutY="66.0" text="Bienvenido al sistema de préstamo de libros! Seleccione la opción deseada" />
+      <Label layoutX="102.0" layoutY="191.0" text="Nombre estudiante" />
+      <Label layoutX="102.0" layoutY="229.0" text="Cédula estudiante" />
+      <TextField fx:id="NombreEstudiante" layoutX="258.0" layoutY="188.0" />
+      <TextField fx:id="CedulaEstudiante" layoutX="259.0" layoutY="225.0" />
+      <Label fx:id="cargados" layoutX="139.0" layoutY="143.0" prefHeight="18.0" prefWidth="322.0" />
+   </children>
+</AnchorPane>

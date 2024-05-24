@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="546.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ads.puj.proyectoadsprestamo.PrestamoController">
+   <children>
+      <Button fx:id="salir" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onButtonSalir" text="Salir" />
+      <ListView fx:id="LibrosCarro" layoutX="53.0" layoutY="158.0" prefHeight="200.0" prefWidth="532.0" />
+      <Button fx:id="Agregar" layoutX="464.0" layoutY="98.0" mnemonicParsing="false" onAction="#onButtonAgregar" text="Agregar al préstamo" />
+      <Button fx:id="Eliminar" layoutX="53.0" layoutY="373.0" mnemonicParsing="false" onAction="#onButtonEliminar" text="Eliminar" />
+      <Button fx:id="Mod" layoutX="303.0" layoutY="373.0" mnemonicParsing="false" onAction="#onButtonModificar" text="Modificar cantidad a:" />
+      <Button fx:id="VerCarrito" layoutX="53.0" layoutY="431.0" mnemonicParsing="false" onAction="#onButtonInsertar" prefHeight="26.0" prefWidth="92.0" text="Insertar pago" />
+      <Label layoutX="54.0" layoutY="56.0" text="Seleccione el libro e ingrese cantidad" />
+      <ComboBox fx:id="cmbCatalogo" layoutX="53.0" layoutY="98.0" prefHeight="26.0" prefWidth="400.0" />
+      <Spinner fx:id="cant" layoutX="303.0" layoutY="52.0" />
+      <Spinner fx:id="MCant" layoutX="439.0" layoutY="373.0" />
+      <Label layoutX="53.0" layoutY="141.0" text="Total:" />
+      <Label fx:id="lblTotal" layoutX="97.0" layoutY="141.0" text="Label" />
+      <Spinner fx:id="cant1" layoutX="164.0" layoutY="431.0" prefHeight="26.0" prefWidth="103.0" />
+      <Spinner fx:id="cant2" layoutX="164.0" layoutY="470.0" prefHeight="26.0" prefWidth="103.0" />
+      <Label layoutX="274.0" layoutY="435.0" text="Monedas de" />
+      <Label layoutX="273.0" layoutY="474.0" text="Billetes de" />
+      <ComboBox fx:id="denomMonedas" layoutX="365.0" layoutY="431.0" prefHeight="26.0" prefWidth="223.0" />
+      <ComboBox fx:id="denomBilletes" layoutX="365.0" layoutY="469.0" prefHeight="26.0" prefWidth="223.0" />
+      <Button fx:id="Limpiar" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" onAction="#onButtonLimpiar" text="Limpiar prestamo" />
+      <Button fx:id="Editar" layoutX="208.0" layoutY="373.0" mnemonicParsing="false" onAction="#onButtonEditar" text="Editar" />
+      <Label layoutX="53.0" layoutY="462.0" text="Saldo:" />
+      <Label fx:id="TotalPago" layoutX="98.0" layoutY="462.0" text="Label" />
+   </children>
+</AnchorPane>
