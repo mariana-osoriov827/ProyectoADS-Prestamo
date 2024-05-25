@@ -107,7 +107,15 @@ public class NegocioPrestamo implements INegocioPrestamo{
 
     @Override
     public void modificarCantidadLibroDelPrestamo(Libro libro, int nuevaCantidad) {
+        if(nuevaCantidad == 0){
+            eliminarLibroDelPrestamo(libro);
+        }
+        for(Linea linea: prestamoactual.getLineas()){
+            if(linea.getLibro().equals(libro)){
+                linea.setCantidad(nuevaCantidad);
+            }
 
+        }
     }
 
     @Override

@@ -109,6 +109,12 @@ public class PrestamoController implements Initializable {
 
     @FXML
     public void onButtonModificar(ActionEvent actionEvent) {
+        Libro libroSel = getLibroSeleccionado();
+        if (libroSel != null) {
+            Integer cantidad = (Integer) MCant.getValue();
+            negocio.modificarCantidadLibroDelPrestamo(libroSel, cantidad);
+            refrescarPantalla();
+        }
     }
 
     @FXML
@@ -150,6 +156,8 @@ public class PrestamoController implements Initializable {
     @FXML
     @Deprecated
     public void onButtonEditar(ActionEvent actionEvent) {
+        String libroSel = getLibroCarritoSeleccionado().getNombre();
+        cmbCatalogo.setValue(libroSel);
     }
 
     @Deprecated
