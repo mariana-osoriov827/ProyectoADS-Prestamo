@@ -5,6 +5,7 @@ import ads.puj.proyectoadsprestamo.dominio.Libro;
 import ads.puj.proyectoadsprestamo.integracion.IntegradorFileSystem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class NegocioPrestamo implements INegocioPrestamo{
@@ -94,7 +95,14 @@ public class NegocioPrestamo implements INegocioPrestamo{
 
     @Override
     public void eliminarLibroDelPrestamo(Libro libro) {
-
+        Iterator<Linea> iterator = prestamoactual.getLineas().iterator();
+        while (iterator.hasNext()) {
+            Linea linea = iterator.next();
+            if (libro.equals(linea.getLibro())) {
+                iterator.remove();
+                break;
+            }
+        }
     }
 
     @Override

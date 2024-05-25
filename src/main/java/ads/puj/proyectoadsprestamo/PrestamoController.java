@@ -1,6 +1,7 @@
 package ads.puj.proyectoadsprestamo;
 
 import ads.puj.proyectoadsprestamo.dominio.Libro;
+import ads.puj.proyectoadsprestamo.dominio.Linea;
 import ads.puj.proyectoadsprestamo.negocio.INegocioPrestamo;
 import ads.puj.proyectoadsprestamo.negocio.NegocioPrestamo;
 import javafx.collections.FXCollections;
@@ -73,6 +74,7 @@ public class PrestamoController implements Initializable {
         cmbCatalogo.setItems(observableLibros);
     }
 
+
     private Libro getLibroSeleccionado() {
         String selectedNombre = cmbCatalogo.getValue().toString();
         for (Libro libro : negocio.getCatalogo()) {
@@ -82,7 +84,18 @@ public class PrestamoController implements Initializable {
         }
         return null;
     }
-
+    private Libro getLibroCarritoSeleccionado() {
+        String selectedItem = (String) LibrosCarro.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            return null;
+        }
+        for (Linea linea : negocio.getPrestamoactual().getLineas()) {
+            if (selectedItem.equals(linea.toString())) {
+                return linea.getLibro();
+            }
+        }
+        return null;
+    }
 
     @FXML
     public void onButtonInsertar(ActionEvent actionEvent) {
@@ -100,6 +113,11 @@ public class PrestamoController implements Initializable {
 
     @FXML
     public void onButtonEliminar(ActionEvent actionEvent) {
+        Libro libroSel = getLibroCarritoSeleccionado();
+        if (libroSel != null) {
+            negocio.eliminarLibroDelPrestamo(libroSel);
+            refrescarPantalla();
+        }
     }
 
     @FXML
