@@ -28,7 +28,7 @@ public class IntegradorFileSystem {
         return catalogo;
     }
 
-    public static void guardarPrestamo(Prestamo prestamo) throws JsonIOException {
+    public void guardarPrestamo(Prestamo prestamo) throws JsonIOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(prestamo);
         System.out.println(json);

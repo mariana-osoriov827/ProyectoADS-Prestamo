@@ -26,4 +26,5 @@ public interface INegocioPrestamo {
     void terminarPrestamo();
     void guardarPrestamo();
 
+    void limpiarPrestamo();
 }

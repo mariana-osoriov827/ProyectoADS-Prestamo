@@ -63,6 +63,6 @@ public class Prestamo {
     }
 
     public void agregarLinea(Linea linea) {
-        lineas.add(linea);
+        this.lineas.add(linea);
     }
 }

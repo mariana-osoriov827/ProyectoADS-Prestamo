@@ -70,7 +70,8 @@ public class PrestamoController implements Initializable {
     private void loadLibros() {
         negocio.cargarLibros();
         observableLibros.setAll(negocio.getNombresCatalogo());
-        cmbCatalogo.getItems().addAll(observableLibros);
+        cmbCatalogo.setItems(observableLibros);
+        System.out.println("Libros cargados en ComboBox: " + observableLibros);
     }
 
     private Libro getLibroSeleccionado() {
@@ -90,6 +91,8 @@ public class PrestamoController implements Initializable {
 
     @FXML
     public void onButtonLimpiar(ActionEvent actionEvent) {
+        negocio.limpiarPrestamo();
+        refrescarPantalla();
     }
 
     @FXML
@@ -103,10 +106,17 @@ public class PrestamoController implements Initializable {
     @FXML
     public void onButtonAgregar(ActionEvent actionEvent) {
         Libro libroSel = getLibroSeleccionado();
-        Integer cantidad = (Integer) cant.getValue();
-        negocio.agregarLibroAlPrestamo(libroSel, cantidad);
+        if (libroSel != null) {
+            Integer cantidad = (Integer) cant.getValue();
+            negocio.agregarLibroAlPrestamo(libroSel, cantidad);
+            refrescarPantalla();
+        }
+    }
+    public void refrescarPantalla(){
+        initializeSpinners();
         lblTotal.setText(String.valueOf(negocio.totalizarPrestamo()));
-        observableLibrosCarrito.setAll(negocio.getPrestamoactual().getLineas().toString());
+        observableLibrosCarrito.clear();
+        negocio.getPrestamoactual().getLineas().forEach(linea -> observableLibrosCarrito.add(linea.toString()));
         LibrosCarro.setItems(observableLibrosCarrito);
     }
     @FXML
@@ -142,6 +152,7 @@ public class PrestamoController implements Initializable {
 
             // Mostrar el Stage
             stage.show();
+            negocio.limpiarPrestamo();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,7 +161,6 @@ public class PrestamoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadLibros();
         initializeSpinners();
     }
     @FXML
@@ -175,39 +185,36 @@ public class PrestamoController implements Initializable {
     public void onButtonIniciar(ActionEvent actionEvent) {
         String cedulaEstudiante = CedulaEstudiante.getText();
         String nombreEstudiante = NombreEstudiante.getText();
-        if (cedulaEstudiante.isEmpty() || nombreEstudiante.isEmpty()) {
+        try {
+            negocio.iniciarPrestamo(nombreEstudiante, cedulaEstudiante);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             return;
         }
-        negocio.iniciarPrestamo(nombreEstudiante, cedulaEstudiante);
-        try {
-            // Cargar el nuevo FXML para la PantallaPrestamo
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaPrestamo.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtener el controlador del FXML cargado
-            PrestamoController prestamoController = fxmlLoader.getController();
-
-            // Obtener el Stage actual
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-            // Crear una nueva escena con el contenido del FXML cargado
-            Scene scene = new Scene(root);
-
-            // Configurar la nueva escena en el Stage
-            stage.setScene(scene);
-            stage.setTitle("Pantalla de Prestamo");
-
-            // Mostrar el Stage
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!negocio.getCatalogo().isEmpty()) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaPrestamo.fxml"));
+                Parent root = fxmlLoader.load();
+                PrestamoController prestamoController = fxmlLoader.getController();
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Pantalla de Prestamo");
+                stage.show();
+                prestamoController.loadLibros();  // Cargar libros después de cambiar la pantalla
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            cargados.setText("Debe cargar los libros");
         }
     }
+
     @FXML
     public void onButtonCargar(ActionEvent actionEvent) {
         if (negocio.cargarLibros()) {
-            cargados.setText("Libros cargados exitosamente! ");
+            loadLibros();
+            cargados.setText("Libros cargados exitosamente!");
         } else {
             cargados.setText("Error al cargar los libros.");
         }

@@ -59,23 +59,34 @@ public class NegocioPrestamo implements INegocioPrestamo{
             return false;
         }
         else{
-            System.out.println(catalogo);
             return true;
         }
     }
 
     @Override
-    public void iniciarPrestamo(String nombreEstudiante, String cedulaEstudiante) {
-        Estudiante estudiante = new Estudiante(Integer.parseInt(cedulaEstudiante), nombreEstudiante);
+    public void iniciarPrestamo(String nombreEstudiante, String cedulaEstudiante) throws IllegalArgumentException{
+        Estudiante estudiante = new Estudiante(cedulaEstudiante, nombreEstudiante);
         prestamoactual.setPrestatario(estudiante);
     }
 
     @Override
     public void agregarLibroAlPrestamo(Libro libro, int cantidad) {
-        Linea linea = new Linea(cantidad, libro);
-        prestamoactual.agregarLinea(linea);
+        if(cantidad!=0) {
+            for (Linea l : prestamoactual.getLineas()) {
+                if (l.getLibro().equals(libro)) {
+                    l.setCantidad(l.getCantidad() + cantidad);
+                    return;
+                }
+            }
+            Linea linea = new Linea(cantidad, libro);
+            prestamoactual.agregarLinea(linea);
+        }
     }
-
+    @Override
+    public void limpiarPrestamo(){
+        prestamoactual=null;
+        prestamoactual = new Prestamo();
+    }
     @Override
     public void listarLibrosDelPrestamo() {
 

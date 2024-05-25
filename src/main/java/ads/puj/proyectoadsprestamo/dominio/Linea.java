@@ -30,7 +30,7 @@ public class Linea {
 
     @Override
     public String toString() {
-        return "libro=" + libro.getNombre() +
-                "cantidad=" + cantidad;
+        return "libro: " + libro.getNombre() +
+                ", Cantidad: " + cantidad;
     }
 }
