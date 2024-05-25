@@ -118,6 +118,6 @@ public class NegocioPrestamo implements INegocioPrestamo{
 
     @Override
     public void guardarPrestamo() {
-        fs.guardarPrestamo(prestamoactual);
+       fs.guardarPrestamo(prestamoactual);
     }
 }

@@ -1,7 +1,6 @@
 package ads.puj.proyectoadsprestamo.negocio;
 
 import ads.puj.proyectoadsprestamo.dominio.Libro;
-import ads.puj.proyectoadsprestamo.dominio.Libro;
 import ads.puj.proyectoadsprestamo.dominio.Prestamo;
 
 import java.util.List;

@@ -71,7 +71,6 @@ public class PrestamoController implements Initializable {
         negocio.cargarLibros();
         observableLibros.setAll(negocio.getNombresCatalogo());
         cmbCatalogo.setItems(observableLibros);
-        System.out.println("Libros cargados en ComboBox: " + observableLibros);
     }
 
     private Libro getLibroSeleccionado() {
@@ -115,12 +114,17 @@ public class PrestamoController implements Initializable {
     public void refrescarPantalla(){
         initializeSpinners();
         lblTotal.setText(String.valueOf(negocio.totalizarPrestamo()));
+        listarLibrosDelPrestamo();
+
+    }
+
+    private void listarLibrosDelPrestamo() {
         observableLibrosCarrito.clear();
         negocio.getPrestamoactual().getLineas().forEach(linea -> observableLibrosCarrito.add(linea.toString()));
         LibrosCarro.setItems(observableLibrosCarrito);
     }
+
     @FXML
-    @Deprecated
     public void onButtonGuardar(ActionEvent actionEvent) {
         negocio.guardarPrestamo();
     }

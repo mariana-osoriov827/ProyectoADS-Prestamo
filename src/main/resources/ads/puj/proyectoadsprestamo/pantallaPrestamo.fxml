@@ -26,6 +26,6 @@
       <Button fx:id="Editar" layoutX="208.0" layoutY="373.0" mnemonicParsing="false" onAction="#onButtonEditar" text="Editar" />
       <Label layoutX="53.0" layoutY="462.0" text="Saldo:" />
       <Label fx:id="TotalPago" layoutX="98.0" layoutY="462.0" text="Label" />
-      <Button fx:id="Guardar" layoutX="263.0" layoutY="506.0" mnemonicParsing="false" text="Guardar préstamo" />
+      <Button fx:id="Guardar" layoutX="263.0" layoutY="506.0" mnemonicParsing="false" onAction="#onButtonGuardar" text="Guardar préstamo" />
    </children>
 </AnchorPane>
