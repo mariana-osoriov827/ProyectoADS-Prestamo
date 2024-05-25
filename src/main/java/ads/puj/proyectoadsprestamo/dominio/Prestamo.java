@@ -65,4 +65,11 @@ public class Prestamo {
     public void agregarLinea(Linea linea) {
         this.lineas.add(linea);
     }
+    public float totalizarPagos(){
+        float total = 0;
+        for(Pago p: pagos){
+            total+=p.getCantidad();
+        }
+        return total;
+    }
 }

@@ -22,8 +22,10 @@ public interface INegocioPrestamo {
     void eliminarLibroDelPrestamo(Libro libro);
     void modificarCantidadLibroDelPrestamo(Libro libro, int nuevaCantidad);
     double totalizarPrestamo();
-    void terminarPrestamo();
+    boolean terminarPrestamo();
     void guardarPrestamo();
 
     void limpiarPrestamo();
+
+    float agregarPago(Integer cantidad, Integer denominacion);
 }

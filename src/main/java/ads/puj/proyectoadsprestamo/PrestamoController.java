@@ -30,9 +30,11 @@ public class PrestamoController implements Initializable {
     @FXML
     private ComboBox cmbCatalogo = new ComboBox();
     @FXML
-    private ComboBox denomBilletes;
+    private ComboBox denomBilletes= new ComboBox();
     @FXML
     private Button Mod;
+    @FXML
+    private Button Terminar;
     @FXML
     private Button salir;
     @FXML
@@ -48,6 +50,8 @@ public class PrestamoController implements Initializable {
     @FXML
     private Label lblTotal;
     @FXML
+    private Label Devuelta;
+    @FXML
     private Label cargados;
     @FXML
     private Spinner cant2= new Spinner();
@@ -58,7 +62,11 @@ public class PrestamoController implements Initializable {
     @FXML
     private Button Eliminar;
     @FXML
-    private ComboBox denomMonedas;
+    private Button insertarMonedas;
+    @FXML
+    private Button insertarBilletes;
+    @FXML
+    private ComboBox denomMonedas= new ComboBox();
     @FXML
     private Button VerCarrito;
     @FXML
@@ -98,7 +106,60 @@ public class PrestamoController implements Initializable {
     }
 
     @FXML
-    public void onButtonInsertar(ActionEvent actionEvent) {
+    public void onButtonInsertarMonedas(ActionEvent actionEvent) {
+        Integer denominacion = (Integer) denomMonedas.getValue();
+        Integer cantidad = (Integer) cant1.getValue();
+        float total = negocio.agregarPago(cantidad, denominacion);
+        TotalPago.setText(String.valueOf(total));
+        Devuelta.setText(String.valueOf(calcularDevuelta(total)));
+        refrescarPantalla();
+    }
+    public float calcularDevuelta(float saldo){
+        if(saldo> negocio.totalizarPrestamo()){
+            return (float) (saldo- negocio.totalizarPrestamo());
+        }
+        else{
+            return 0;
+        }
+    }
+    @FXML
+    public void onButtonInsertarBilletes(ActionEvent actionEvent) {
+        Integer denominacion = (Integer) denomBilletes.getValue();
+        Integer cantidad = (Integer) cant2.getValue();
+        float total = negocio.agregarPago(cantidad, denominacion);
+        TotalPago.setText(String.valueOf(total));
+        Devuelta.setText(String.valueOf(calcularDevuelta(total)));
+        refrescarPantalla();
+    }
+    @FXML
+    public void onButtonTerminar(ActionEvent actionEvent) {
+        if(negocio.terminarPrestamo()){
+            try {
+                // Cargar el nuevo FXML para la PantallaPrestamo
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaInicio.fxml"));
+                Parent root = fxmlLoader.load();
+
+                // Obtener el controlador del FXML cargado
+                PrestamoController prestamoController = fxmlLoader.getController();
+
+                // Obtener el Stage actual
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+                // Crear una nueva escena con el contenido del FXML cargado
+                Scene scene = new Scene(root);
+
+                // Configurar la nueva escena en el Stage
+                stage.setScene(scene);
+                stage.setTitle("Pantalla inicio");
+
+                // Mostrar el Stage
+                stage.show();
+                negocio.limpiarPrestamo();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -139,7 +200,7 @@ public class PrestamoController implements Initializable {
         initializeSpinners();
         lblTotal.setText(String.valueOf(negocio.totalizarPrestamo()));
         listarLibrosDelPrestamo();
-
+        initializeComboBoxes();
     }
 
     private void listarLibrosDelPrestamo() {
@@ -192,6 +253,7 @@ public class PrestamoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeSpinners();
+        initializeComboBoxes();
     }
     @FXML
     private void initializeSpinners() {
@@ -210,6 +272,13 @@ public class PrestamoController implements Initializable {
         // Inicializar el spinner 'cant2' con un rango de 0 a 100 y un valor inicial de 0
         SpinnerValueFactory<Integer> valor4 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
         cant2.setValueFactory(valor4);
+    }
+    private void initializeComboBoxes() {
+        // Inicializar denomMonedas con los valores 100, 200, 500, 1000
+        denomMonedas.setItems(FXCollections.observableArrayList(100, 200, 500, 1000));
+
+        // Inicializar denomBilletes con los valores 1000, 2000, 5000, 10000, 20000, 50000, 100000
+        denomBilletes.setItems(FXCollections.observableArrayList(1000, 2000, 5000, 10000, 20000, 50000, 100000));
     }
     @FXML
     public void onButtonIniciar(ActionEvent actionEvent) {

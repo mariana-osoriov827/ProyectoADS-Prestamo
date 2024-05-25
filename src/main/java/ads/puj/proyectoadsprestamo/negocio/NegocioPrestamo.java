@@ -128,12 +128,23 @@ public class NegocioPrestamo implements INegocioPrestamo{
     }
 
     @Override
-    public void terminarPrestamo() {
-
+    public boolean terminarPrestamo() {
+        if(prestamoactual.totalizarPagos()>=totalizarPrestamo()){
+            guardarPrestamo();
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public void guardarPrestamo() {
        fs.guardarPrestamo(prestamoactual);
+    }
+    public float agregarPago(Integer cantidad, Integer denominacion){
+        Pago pago = new Pago((float) (cantidad*denominacion));
+        prestamoactual.getPagos().add(pago);
+        return prestamoactual.totalizarPagos();
     }
 }
