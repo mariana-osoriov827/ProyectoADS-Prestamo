@@ -28,8 +28,6 @@ public class IntegradorFileSystem {
     public void guardarPrestamo(Prestamo prestamo) throws JsonIOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(prestamo);
-        System.out.println(json);
-
         String filename = getNextFilename("src/main/resources/ads/puj/proyectoadsprestamo/", "prestamo");
 
         try (FileWriter writer = new FileWriter(filename)) {

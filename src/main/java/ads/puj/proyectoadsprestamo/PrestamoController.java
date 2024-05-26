@@ -50,6 +50,8 @@ public class PrestamoController implements Initializable {
     @FXML
     private Label lblTotal;
     @FXML
+    private Label noTermina;
+    @FXML
     private Label Devuelta;
     @FXML
     private Label errores;
@@ -161,6 +163,9 @@ public class PrestamoController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else{
+            noTermina.setText("Saldo insuficiente.");
         }
     }
 
