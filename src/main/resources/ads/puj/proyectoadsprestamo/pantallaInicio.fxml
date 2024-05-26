@@ -13,5 +13,6 @@
       <TextField fx:id="NombreEstudiante" layoutX="258.0" layoutY="188.0" />
       <TextField fx:id="CedulaEstudiante" layoutX="259.0" layoutY="225.0" />
       <Label fx:id="cargados" layoutX="139.0" layoutY="143.0" prefHeight="18.0" prefWidth="322.0" />
+      <Label fx:id="errores" layoutX="154.0" layoutY="280.0" prefHeight="18.0" prefWidth="290.0" textAlignment="CENTER" />
    </children>
 </AnchorPane>

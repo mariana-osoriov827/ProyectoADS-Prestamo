@@ -52,6 +52,8 @@ public class PrestamoController implements Initializable {
     @FXML
     private Label Devuelta;
     @FXML
+    private Label errores;
+    @FXML
     private Label cargados;
     @FXML
     private Spinner cant2= new Spinner();
@@ -287,7 +289,7 @@ public class PrestamoController implements Initializable {
         try {
             negocio.iniciarPrestamo(nombreEstudiante, cedulaEstudiante);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            errores.setText(e.getMessage());
             return;
         }
         if (!negocio.getCatalogo().isEmpty()) {
